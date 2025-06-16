@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# 가상환경
+.venv/
+env/
+venv/
+
+# IDE 설정
+.idea/
+.vscode/
+
+# 로그 파일
+*.log
+
+# 패키지 관리
+*.egg-info/
+dist/
+build/
+*.egg
+
+# 환경 변수 파일
+.env
+
+scripts/
+
+package.json
