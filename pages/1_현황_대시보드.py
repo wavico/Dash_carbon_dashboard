@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import numpy as np
 from datetime import datetime, timedelta
-import json
+import json 
 import os
 
 # 페이지 설정
@@ -238,7 +238,7 @@ def load_gauge_data():
         return pd.DataFrame()
 
 # 시나리오 분석 함수
-def analyze_scenario(user_input, emissions_df, market_df, allocation_df, selected_year):
+def analyze_scenario(user_input, emissions_df, market_df, allocation_df, selected_year=2025):
     """사용자 입력을 분석하여 시나리오 시뮬레이션 결과를 반환"""
     
     # 감축률 관련 질문
@@ -555,7 +555,7 @@ with left_col:
         hovertemplate="<b>%{text}</b><br>CO₂ 농도: %{marker.color:.1f} ppm<extra></extra>",
         name="지역별 CO₂ 농도"
     ))
-    
+        
     fig_map.update_layout(
         mapbox=dict(
             style="open-street-map",
@@ -566,7 +566,7 @@ with left_col:
         margin=dict(l=0, r=0, t=30, b=0),
         title=f"{selected_year}년 {selected_month}월 지역별 평균 이산화탄소 농도 분포"
     )
-    
+        
     st.plotly_chart(fig_map, use_container_width=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
