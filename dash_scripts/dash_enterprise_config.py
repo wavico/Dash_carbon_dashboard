@@ -37,16 +37,12 @@ def configure_redis_cache():
 
 # Performance Optimization Settings
 ENTERPRISE_CONFIG = {
-    'compress': True,
     'serve_locally': False,  # Use CDN for better performance
     'assets_folder': 'assets',
     'assets_url_path': '/assets/',
     'include_assets_files': True,
     'assets_ignore': '',
-    'eager_loading': True,
-    'dev_tools_hot_reload': False,  # Disable in production
-    'dev_tools_hot_reload_interval': 3000,
-    'dev_tools_hot_reload_max_retry': 8
+    'eager_loading': True
 }
 
 # Database Connection Pool Configuration
