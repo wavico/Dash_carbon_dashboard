@@ -11,15 +11,23 @@
 - **📊 다양한 차트**: 바차트, 트리맵, 시계열 분석 등
 - **💹 시장 데이터**: KAU24 시가 및 거래량 추이 분석
 - **🏭 기업별 현황**: 주요 기업별 탄소배출권 할당량 분석
+- **🤖 AI 챗봇**: 탄소 데이터 분석을 위한 대화형 AI 어시스턴트
 
 ## 🏗️ 프로젝트 구조
 
 ```
-dash_scripts/
-├── dash_carbon_dashboard.py      # 🎯 메인 대시보드 (독립 실행 가능)
-├── dash_data_manager.py          # 📊 엔터프라이즈 데이터 관리자
-├── dash_enterprise_config.py     # ⚙️ 엔터프라이즈 설정
-└── dash_enterprise_main.py       # 🏢 엔터프라이즈 메인 애플리케이션
+Dash_carbon_dashboard/
+├── main.py                       # 🎯 Streamlit 메인 대시보드
+├── agent/
+│   └── carbon_rag_agent.py       # 🤖 탄소 데이터 분석 RAG 에이전트
+├── pages/
+│   ├── 1_현황_대시보드.py          # 📊 현황 대시보드 페이지
+│   ├── 2_구매_전략.py             # 💹 구매 전략 페이지
+│   ├── 4_프로그램_정보.py          # ℹ️ 프로그램 정보 페이지
+│   └── 5_AI_챗봇.py              # 🤖 AI 챗봇 페이지
+├── data/                         # 📁 탄소 배출 데이터 파일들
+├── dash_scripts/                 # 📊 Dash 버전 스크립트들
+└── run_chatbot_test.py           # 🧪 챗봇 기능 테스트 스크립트
 ```
 
 ### 파일별 설명
@@ -60,26 +68,42 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 4단계: 대시보드 실행
+### 4단계: 환경 변수 설정
+
+`.env` 파일에 Upstage API 키를 설정하세요:
 
 ```bash
-# 기본 대시보드 실행
-python dash_scripts/dash_carbon_dashboard.py
+# .env 파일 생성 및 편집
+UPSTAGE_API_KEY=your_upstage_api_key_here
 ```
 
-### 5단계: 브라우저에서 접속
+### 5단계: 챗봇 기능 테스트 (선택사항)
+
+```bash
+# 챗봇 에이전트 테스트
+python run_chatbot_test.py
+```
+
+### 6단계: 대시보드 실행
+
+```bash
+# Streamlit 대시보드 실행
+streamlit run main.py
+```
+
+### 7단계: 브라우저에서 접속
 
 대시보드가 성공적으로 실행되면 터미널에 다음과 같은 메시지가 표시됩니다:
 
 ```
-Dash is running on http://0.0.0.0:8050/
- * Serving Flask app 'dash_carbon_dashboard'
- * Debug mode: on
+You can now view your Streamlit app in your browser.
+
+Local URL: http://localhost:8501
+Network URL: http://192.168.x.x:8501
 ```
 
 브라우저에서 다음 URL로 접속하세요:
-- **http://localhost:8050**
-- **http://127.0.0.1:8050**
+- **http://localhost:8501**
 
 ## 📋 필요 패키지
 
@@ -108,6 +132,18 @@ dash-bootstrap-components>=1.5.0
 - **콤보 차트**: KAU24 시가와 거래량 월별 추이
 - **트리맵**: 업종별/기업별 탄소배출권 할당량 비율
 - **시계열 차트**: 주요 지역별 CO₂ 농도 변화 추이
+
+### 🤖 AI 챗봇 사용법
+
+1. **챗봇 접근**: 메인 페이지 우측 하단의 🤖 버튼 클릭 또는 사이드바에서 "AI 챗봇" 페이지 선택
+2. **질문 방법**: 
+   - 예시 질문 버튼 클릭
+   - 직접 질문 입력 (예: "2021년 총배출량은 얼마인가요?")
+3. **지원 기능**:
+   - 탄소 배출량 데이터 분석
+   - 연도별/지역별 비교 분석
+   - 통계 계산 및 추이 분석
+   - 자연어 기반 데이터 질의
 
 ## 🛠️ 문제 해결
 

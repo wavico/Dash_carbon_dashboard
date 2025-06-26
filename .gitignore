@@ -26,7 +26,11 @@ build/
 
 # 환경 변수 파일
 .env
+.cursor/
 
 scripts/
 
 package.json
+
+test_visualization.py
+run_chatbot_test.py

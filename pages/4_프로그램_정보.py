@@ -3,6 +3,10 @@ import pandas as pd
 from datetime import datetime, timedelta
 import json
 import os
+import sys
+
+# 상위 디렉토리의 utils 모듈 import를 위한 경로 추가
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # 페이지 설정
 st.set_page_config(
@@ -392,6 +396,8 @@ with col2:
 with col3:
     if st.button("🔄 정보 새로고침"):
         st.rerun()
+
+# 플로팅 챗봇 버튼 제거됨
 
 # 푸터
 st.markdown("---")

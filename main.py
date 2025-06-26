@@ -539,6 +539,8 @@ st.markdown("""
 """)
 
 
+# 플로팅 챗봇 버튼 제거됨
+
 # 푸터
 st.markdown("---")
 st.markdown(

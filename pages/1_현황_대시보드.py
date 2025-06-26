@@ -5,6 +5,11 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import numpy as np
 from datetime import datetime, timedelta
+import sys
+import os
+
+# 상위 디렉토리의 utils 모듈 import를 위한 경로 추가
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import json 
 import os
 
@@ -778,6 +783,8 @@ with st.sidebar:
     
     if st.button("🔄 데이터 새로고침"):
         st.rerun()
+
+# 플로팅 챗봇 버튼 제거됨
 
 # 푸터
 st.markdown("---")

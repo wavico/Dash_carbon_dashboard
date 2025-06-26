@@ -6,6 +6,11 @@ from plotly.subplots import make_subplots
 import numpy as np
 from datetime import datetime, timedelta
 import json
+import sys
+import os
+
+# 상위 디렉토리의 utils 모듈 import를 위한 경로 추가
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # 페이지 설정
 st.set_page_config(
@@ -417,6 +422,8 @@ with col3:
         st.rerun()
 
 st.markdown('</div>', unsafe_allow_html=True)
+
+# 플로팅 챗봇 버튼 제거됨
 
 # 푸터
 st.markdown("---")
