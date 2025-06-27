@@ -7,14 +7,34 @@ import streamlit as st
 import sys
 import os
 from datetime import datetime
+from dotenv import load_dotenv
+
+# .env 파일 로드 시도
+try:
+    load_dotenv()
+    # .env 파일 로드가 실패할 경우를 대비한 직접 설정
+    if not os.getenv('UPSTAGE_API_KEY'):
+        # .env 파일에서 직접 읽기
+        env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '.env')
+        if os.path.exists(env_path):
+            with open(env_path, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith('#') and '=' in line:
+                        key, value = line.split('=', 1)
+                        os.environ[key.strip()] = value.strip()
+except Exception as e:
+    st.error(f"환경변수 로드 중 오류: {e}")
+    # 직접 설정 (임시)
+    os.environ['UPSTAGE_API_KEY'] = 'up_Tfh3KhtojqHp2MascmzOv3IG4lDu0'
 
 # 상위 디렉토리의 agent 모듈 import를 위한 경로 추가
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 try:
-    from agent.carbon_rag_agent import get_carbon_agent, initialize_agent
+    from agent.enhanced_carbon_rag_agent import EnhancedCarbonRAGAgent
 except ImportError as e:
-    st.error(f"RAG 에이전트 모듈을 불러올 수 없습니다: {e}")
+    st.error(f"향상된 RAG 에이전트 모듈을 불러올 수 없습니다: {e}")
     st.stop()
 
 # 페이지 설정
@@ -91,14 +111,14 @@ st.markdown('<h1 class="main-header">🤖 AI 챗봇 - 탄소 데이터 분석</h
 # 에이전트 초기화
 @st.cache_resource
 def load_agent():
-    """RAG 에이전트 로드 (캐시 사용)"""
-    return get_carbon_agent()
+    """향상된 RAG 에이전트 로드 (캐시 사용)"""
+    return EnhancedCarbonRAGAgent()
 
 # 에이전트 로드
 try:
     agent = load_agent()
 except Exception as e:
-    st.error(f"에이전트 초기화 실패: {e}")
+    st.error(f"향상된 에이전트 초기화 실패: {e}")
     st.stop()
 
 # 데이터 정보 표시
@@ -142,10 +162,9 @@ def process_example_query(query):
     except Exception as e:
         st.error(f"❌ 오류가 발생했습니다: {e}")
     
-    # 상태 초기화 및 페이지 새로고침
+    # 상태 초기화 (st.rerun() 제거)
     st.session_state.current_query = ""
     st.session_state.auto_submit = False
-    st.rerun()  # 답변이 즉시 보이도록 페이지 새로고침
 
 col1, col2 = st.columns(2)
 with col1:
@@ -230,13 +249,10 @@ def process_query(query):
                 else:
                     st.session_state.chat_history.append((query, response, timestamp))
                 
-                # 입력창 초기화
+                # 입력창 초기화 (st.rerun() 제거)
                 st.session_state.chat_input = ""
                 st.session_state.auto_submit = False
                 st.session_state.current_query = ""
-                
-                # 페이지 새로고침으로 입력창 초기화 반영
-                st.rerun()
                 
         except Exception as e:
             st.error(f"❌ 오류가 발생했습니다: {e}")
@@ -268,7 +284,7 @@ if st.session_state.chat_history:
     with col2:
         if st.button("🗑️ 채팅 히스토리 초기화", key="clear_history"):
             st.session_state.chat_history = []
-            st.rerun()
+            st.session_state.chat_input = ""
 
 # 플로팅 챗봇 버튼 제거됨
 

@@ -10,6 +10,10 @@ import os
 import base64
 from PIL import Image, ImageDraw, ImageFont
 import io
+from dotenv import load_dotenv
+
+# .env 파일 로드
+load_dotenv()
 
 # 페이지 설정
 st.set_page_config(

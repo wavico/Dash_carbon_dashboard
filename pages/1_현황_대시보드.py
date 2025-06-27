@@ -73,21 +73,38 @@ def load_emissions_data():
                 for year in range(1990, 2022):
                     if str(year) in df.columns:
                         try:
-                            total_emission = df[df.iloc[:, 0] == '총배출량(Gg CO2eq)'].iloc[0, df.columns.get_loc(str(year))]
-                            energy_emission = df[df.iloc[:, 0] == '에너지'].iloc[0, df.columns.get_loc(str(year))]
-                            industrial_emission = df[df.iloc[:, 0] == '산업공정'].iloc[0, df.columns.get_loc(str(year))]
-                            agriculture_emission = df[df.iloc[:, 0] == '농업'].iloc[0, df.columns.get_loc(str(year))]
-                            waste_emission = df[df.iloc[:, 0] == '폐기물'].iloc[0, df.columns.get_loc(str(year))]
+                            # '총배출량' 키워드가 포함된 행을 찾습니다.
+                            total_emission_row = df[df.iloc[:, 0].str.contains('총배출량', na=False)]
+                            if not total_emission_row.empty:
+                                total_emission = total_emission_row.iloc[0, df.columns.get_loc(str(year))]
+                            else:
+                                total_emission = 0
+
+                            # 키워드 기반으로 다른 배출량 데이터 추출
+                            energy_rows = df[df.iloc[:, 0].str.contains('에너지', na=False)]
+                            # '에너지'와 '총배출량'이 모두 포함된 경우(에너지 총배출량)를 제외하기 위해 필터링
+                            energy_emission_row = energy_rows[~energy_rows.iloc[:, 0].str.contains('총')]
                             
-                            emissions_data.append({
-                                '연도': year,
-                                '총배출량': float(total_emission) if pd.notna(total_emission) else 0,
-                                '에너지배출량': float(energy_emission) if pd.notna(energy_emission) else 0,
-                                '산업공정배출량': float(industrial_emission) if pd.notna(industrial_emission) else 0,
-                                '농업배출량': float(agriculture_emission) if pd.notna(agriculture_emission) else 0,
-                                '폐기물배출량': float(waste_emission) if pd.notna(waste_emission) else 0
-                            })
-                        except (IndexError, KeyError):
+                            industrial_emission_row = df[df.iloc[:, 0].str.contains('산업공정', na=False)]
+                            agriculture_emission_row = df[df.iloc[:, 0].str.contains('농업', na=False)]
+                            waste_emission_row = df[df.iloc[:, 0].str.contains('폐기물', na=False)]
+
+                            energy_emission = energy_emission_row.iloc[0, df.columns.get_loc(str(year))] if not energy_emission_row.empty else 0
+                            industrial_emission = industrial_emission_row.iloc[0, df.columns.get_loc(str(year))] if not industrial_emission_row.empty else 0
+                            agriculture_emission = agriculture_emission_row.iloc[0, df.columns.get_loc(str(year))] if not agriculture_emission_row.empty else 0
+                            waste_emission = waste_emission_row.iloc[0, df.columns.get_loc(str(year))] if not waste_emission_row.empty else 0
+                            
+                            # 데이터가 유효한 경우에만 추가
+                            if total_emission is not None and pd.notna(total_emission):
+                                emissions_data.append({
+                                    '연도': year,
+                                    '총배출량': float(total_emission),
+                                    '에너지': float(energy_emission) if pd.notna(energy_emission) else 0,
+                                    '산업공정': float(industrial_emission) if pd.notna(industrial_emission) else 0,
+                                    '농업': float(agriculture_emission) if pd.notna(agriculture_emission) else 0,
+                                    '폐기물': float(waste_emission) if pd.notna(waste_emission) else 0
+                                })
+                        except (IndexError, KeyError, ValueError):
                             continue
                 
                 return pd.DataFrame(emissions_data)
@@ -243,152 +260,258 @@ def load_gauge_data():
         return pd.DataFrame()
 
 # 시나리오 분석 함수
-def analyze_scenario(user_input, emissions_df, market_df, allocation_df, selected_year=2025):
-    """사용자 입력을 분석하여 시나리오 시뮬레이션 결과를 반환"""
+# 시각화 요청 감지 및 차트 생성 함수들
+def is_visualization_request(user_input):
+    """사용자 입력이 시각화 요청인지 판단"""
+    visualization_keywords = [
+        # 한국어 키워드
+        '그래프', '그려줘', '그려주세요', '그려', '차트', '플롯', '그림', 
+        '시각화', '도표', '막대그래프', '선그래프', '파이차트', '보여줘',
+        '표시해', '나타내', '그려서', '차트로', '그래프로', '비교해줘',
+        '시각적', '도식화', '그림으로', '차트로',
+        # 영어 키워드  
+        'plot', 'chart', 'graph', 'visualization', 'draw', 'show chart',
+        'bar chart', 'line chart', 'pie chart', 'visualize', 'compare'
+    ]
     
-    # 감축률 관련 질문
-    if any(keyword in user_input for keyword in ['감축률', '감축', '목표']):
-        # 숫자 추출
-        import re
-        numbers = re.findall(r'\d+', user_input)
-        
-        if len(numbers) >= 1:
-            new_reduction = float(numbers[0])
-            current_reduction = 15.0  # 기본값
-            
-            # 현재 배출량 기준으로 계산
-            try:
-                current_emission = emissions_df[emissions_df['연도'] == selected_year]['총배출량'].iloc[0] if not emissions_df.empty else 676647.9049
-            except (IndexError, KeyError):
-                current_emission = 676647.9049
-            
-            base_emission = current_emission * (1 - current_reduction/100)
-            new_emission = base_emission * (1 - new_reduction/100)
-            additional_reduction = current_emission - new_emission
-            
-            # 비용 추정
-            cost_per_ton = 50000
-            additional_cost = additional_reduction * 1000 * cost_per_ton / 100000000
-            
-            return f"""
-🎯 **감축 목표 상향 시뮬레이션 결과**
+    user_input_lower = user_input.lower()
+    return any(keyword in user_input_lower for keyword in visualization_keywords)
 
-📊 **현재 상황**:
-- 현재 감축률: {current_reduction}%
-- 현재 배출량: {current_emission:,.0f} Gg CO₂eq
-
-📈 **새로운 목표**:
-- 새로운 감축률: {new_reduction}%
-- 새로운 배출량: {new_emission:,.0f} Gg CO₂eq
-
-💰 **추가 투자 필요**:
-- 추가 감축량: {additional_reduction:,.0f} Gg CO₂eq
-- 예상 투자 비용: {additional_cost:,.0f}억원
-
-💡 **전략 제안**: 
-감축률 {new_reduction}% 달성을 위해 {additional_cost:,.0f}억원의 추가 투자가 필요합니다. 
-에너지 효율 개선, 재생에너지 전환, 탄소 포집 기술 도입을 고려해보세요.
-"""
+def detect_chart_type(user_input):
+    """사용자 입력에서 차트 타입을 감지"""
+    user_input_lower = user_input.lower()
     
-    # 배출권 가격 관련 질문
-    elif any(keyword in user_input for keyword in ['가격', '배출권', 'KAU']):
-        numbers = re.findall(r'\d+', user_input)
-        
-        if len(numbers) >= 1:
-            new_price = float(numbers[0])
-            current_price = 8770  # 현재 KAU24 가격
-            
-            price_change_ratio = (new_price - current_price) / current_price
-            
-            try:
-                trading_volume = market_df[market_df['연도'] == selected_year]['거래량'].sum() if not market_df.empty else 1000000
-            except (IndexError, KeyError):
-                trading_volume = 1000000
-            
-            revenue_impact = trading_volume * price_change_ratio * current_price / 100000000
-            
-            if price_change_ratio > 0:
-                strategy = "📈 **전략 제안**: 배출권 매수 타이밍, 감축 투자 확대"
-            else:
-                strategy = "📉 **전략 제안**: 배출권 매도 고려, 감축 투자 재검토"
-            
-            return f"""
-💹 **배출권 가격 변동 시뮬레이션 결과**
-
-📊 **가격 변화**:
-- 현재 가격: {current_price:,}원
-- 예상 가격: {new_price:,}원
-- 변동률: {price_change_ratio*100:+.1f}%
-
-💰 **영향 분석**:
-- 거래량: {trading_volume:,.0f} tCO₂eq
-- 수익 영향: {revenue_impact:+,.0f}억원
-
-{strategy}
-"""
-    
-    # 할당량 관련 질문
-    elif any(keyword in user_input for keyword in ['할당량', '배출권 부족', '배출권 잉여']):
-        numbers = re.findall(r'\d+', user_input)
-        
-        if len(numbers) >= 1:
-            new_allocation = float(numbers[0])
-            current_allocation = 1000  # 기본값
-            
-            allocation_change = new_allocation - current_allocation
-            change_ratio = allocation_change / current_allocation
-            
-            if allocation_change < 0:
-                additional_cost = abs(allocation_change) * 10000 * 8770 / 100000000
-                return f"""
-⚠️ **할당량 조정 시뮬레이션 결과**
-
-📊 **현재 상황**:
-- 현재 할당량: {current_allocation:,.0f}만톤
-- 조정된 할당량: {new_allocation:,.0f}만톤
-- 변화율: {change_ratio*100:+.1f}%
-
-💰 **배출권 부족**:
-- 부족량: {abs(allocation_change):,.0f}만톤
-- 추가 구매 비용: {additional_cost:,.0f}억원
-
-💡 **대응 방안**: 
-배출권 시장에서 {abs(allocation_change):,.0f}만톤을 추가 구매하거나, 
-감축 투자를 통해 배출량을 줄여야 합니다.
-"""
-            else:
-                additional_revenue = allocation_change * 10000 * 8770 / 100000000
-                return f"""
-✅ **할당량 조정 시뮬레이션 결과**
-
-📊 **현재 상황**:
-- 현재 할당량: {current_allocation:,.0f}만톤
-- 조정된 할당량: {new_allocation:,.0f}만톤
-- 변화율: {change_ratio*100:+.1f}%
-
-💰 **배출권 잉여**:
-- 잉여량: {allocation_change:,.0f}만톤
-- 추가 수익: {additional_revenue:,.0f}억원
-
-💡 **대응 방안**: 
-배출권 시장에서 {allocation_change:,.0f}만톤을 판매하여 
-{additional_revenue:,.0f}억원의 추가 수익을 창출할 수 있습니다.
-"""
-    
-    # 일반적인 질문
+    # 배출량 관련
+    if any(keyword in user_input_lower for keyword in ['배출량', '온실가스', '탄소', 'emission']):
+        return 'emissions'
+    # 시장/가격 관련
+    elif any(keyword in user_input_lower for keyword in ['가격', '시가', '거래량', 'kau', '배출권', 'market']):
+        return 'market'
+    # 할당량 관련
+    elif any(keyword in user_input_lower for keyword in ['할당량', '업체', '회사', 'allocation']):
+        return 'allocation'
+    # 기본값: 배출량
     else:
-        return f"""
-🤖 **AI 시뮬레이션 어시스턴트**
+        return 'emissions'
 
-안녕하세요! 탄소배출량 및 배출권 관련 시나리오 분석을 도와드립니다.
+def create_emissions_chart(emissions_df, selected_year):
+    """배출량 차트 생성"""
+    if emissions_df.empty:
+        return None
+    
+    # 최근 10년 데이터 필터링
+    recent_data = emissions_df[emissions_df['연도'] >= (selected_year - 9)]
+    recent_data = recent_data[recent_data['연도'] <= selected_year]
+    
+    fig = go.Figure()
+    
+    # 총배출량 선 그래프
+    fig.add_trace(go.Scatter(
+        x=recent_data['연도'],
+        y=recent_data['총배출량'],
+        mode='lines+markers',
+        name='총배출량',
+        line=dict(color='red', width=3),
+        marker=dict(size=8),
+        hovertemplate='<b>총배출량</b><br>' +
+                     '연도: %{x}<br>' +
+                     '배출량: %{y:,.1f} Gg CO₂eq<br>' +
+                     '<extra></extra>'
+    ))
+    
+    # 에너지배출량 선 그래프
+    fig.add_trace(go.Scatter(
+        x=recent_data['연도'],
+        y=recent_data['에너지'],
+        mode='lines+markers',
+        name='에너지배출량',
+        line=dict(color='blue', width=3),
+        marker=dict(size=8),
+        hovertemplate='<b>에너지배출량</b><br>' +
+                     '연도: %{x}<br>' +
+                     '배출량: %{y:,.1f} Gg CO₂eq<br>' +
+                     '<extra></extra>'
+    ))
+    
+    fig.update_layout(
+        title=f"연도별 온실가스 배출량 추이 ({selected_year-9}~{selected_year})",
+        xaxis_title="연도",
+        yaxis_title="배출량 (Gg CO₂eq)",
+        height=400,
+        yaxis=dict(
+            tickformat=".0f",
+            hoverformat=".1f",
+            separatethousands=True
+        ),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
+        )
+    )
+    
+    return fig
 
-💡 **질문 예시**:
-- "감축률을 20%로 올리면 얼마나 투자해야 하나요?"
-- "배출권 가격이 10000원이 되면 어떤 영향이 있나요?"
-- "할당량이 800만톤으로 줄어들면 어떻게 되나요?"
+def create_market_chart(market_df, selected_year):
+    """시장 데이터 차트 생성"""
+    if market_df.empty:
+        return None
+    
+    # 선택된 연도 데이터 필터링
+    market_filtered = market_df[market_df['연도'] == selected_year]
+    
+    if market_filtered.empty:
+        return None
+    
+    # 월별 평균 계산
+    monthly_data = market_filtered.groupby('월').agg({
+        '시가': 'mean',
+        '거래량': 'sum'
+    }).reset_index()
+    
+    # 콤보 차트 생성
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
+    
+    # 거래량 바 차트
+    fig.add_trace(
+        go.Bar(
+            x=monthly_data['월'], 
+            y=monthly_data['거래량'], 
+            name="거래량", 
+            marker_color='lightblue',
+            hovertemplate='<b>거래량</b><br>' +
+                         '월: %{x}<br>' +
+                         '거래량: %{y:,.0f}<br>' +
+                         '<extra></extra>'
+        ),
+        secondary_y=False,
+    )
+    
+    # 시가 선 차트
+    fig.add_trace(
+        go.Scatter(
+            x=monthly_data['월'], 
+            y=monthly_data['시가'], 
+            mode='lines+markers', 
+            name="평균 시가", 
+            line=dict(color='red', width=3),
+            marker=dict(size=8),
+            hovertemplate='<b>평균 시가</b><br>' +
+                         '월: %{x}<br>' +
+                         '시가: %{y:,.0f}원<br>' +
+                         '<extra></extra>'
+        ),
+        secondary_y=True,
+    )
+    
+    fig.update_xaxes(title_text="월")
+    fig.update_yaxes(title_text="거래량", secondary_y=False)
+    fig.update_yaxes(title_text="시가 (원)", secondary_y=True)
+    fig.update_layout(
+        title=f"{selected_year}년 KAU24 월별 시가/거래량 추이",
+        height=400
+    )
+    
+    return fig
 
-현재 {selected_year}년 데이터를 기준으로 분석해드립니다.
-"""
+def create_allocation_chart(allocation_df, selected_year):
+    """할당량 차트 생성"""
+    if allocation_df.empty:
+        return None
+    
+    # 선택된 연도 데이터 필터링
+    allocation_filtered = allocation_df[allocation_df['연도'] == selected_year]
+    
+    if allocation_filtered.empty:
+        # 다른 연도 데이터 사용
+        available_years = sorted(allocation_df['연도'].unique())
+        if available_years:
+            selected_year = available_years[-1]  # 가장 최근 연도
+            allocation_filtered = allocation_df[allocation_df['연도'] == selected_year]
+    
+    if allocation_filtered.empty:
+        return None
+    
+    # 상위 15개 업체 필터링
+    top_companies = allocation_filtered.nlargest(15, '대상년도별할당량')
+    
+    # 막대 차트 생성
+    fig = go.Figure()
+    
+    fig.add_trace(go.Bar(
+        x=top_companies['대상년도별할당량'],
+        y=top_companies['업체명'],
+        orientation='h',
+        marker_color='green',
+        hovertemplate='<b>%{y}</b><br>' +
+                     '할당량: %{x:,.0f} tCO₂eq<br>' +
+                     '<extra></extra>'
+    ))
+    
+    fig.update_layout(
+        title=f"{selected_year}년 상위 15개 업체별 배출권 할당량",
+        xaxis_title="할당량 (tCO₂eq)",
+        yaxis_title="업체명",
+        height=500,
+        xaxis=dict(
+            tickformat=".0f",
+            separatethousands=True
+        )
+    )
+    
+    return fig
+
+def analyze_scenario(user_input, emissions_df, market_df, allocation_df, selected_year=2025):
+    """사용자 입력을 분석하여 시각화 또는 기본 응답을 반환 (AI 판단 배제)"""
+    
+    # 1. 시각화 요청인지 '규칙'으로만 판단
+    if is_visualization_request(user_input):
+        chart_type = detect_chart_type(user_input)
+        
+        # 필요한 데이터프레임 선택
+        df_map = {'emissions': emissions_df, 'market': market_df, 'allocation': allocation_df}
+        required_df = df_map.get(chart_type)
+        
+        # 데이터 유무 확인
+        if required_df is None or required_df.empty:
+            return "❌ 요청하신 차트를 그리는 데 필요한 데이터가 없습니다."
+        
+        # 차트 생성
+        chart_fig = None
+        response_text = f"✅ 요청하신 {chart_type} 차트를 생성했습니다." # 기본 응답
+
+        if chart_type == 'emissions':
+            chart_fig = create_emissions_chart(emissions_df, selected_year)
+            # 정확한 데이터 기반으로 템플릿 응답 생성 (AI 개입 없음)
+            try:
+                val_2017 = emissions_df.loc[emissions_df['연도'] == 2017, '총배출량'].iloc[0]
+                val_2021 = emissions_df.loc[emissions_df['연도'] == 2021, '총배출량'].iloc[0]
+                diff = val_2017 - val_2021
+                response_text = (
+                    f"✅ 2017년 대비 2021년 총배출량은 **{diff:,.1f} Gg CO₂eq** 만큼 감소했습니다.\n\n"
+                    f"- **2017년**: `{val_2017:,.1f}` Gg CO₂eq\n"
+                    f"- **2021년**: `{val_2021:,.1f}` Gg CO₂eq\n\n"
+                    f"*데이터 출처: 국가 온실가스 인벤토리(1990-2021)*"
+                )
+            except (IndexError, KeyError):
+                pass # 특정 연도 데이터 없으면 기본 응답 사용
+
+        elif chart_type == 'market':
+            chart_fig = create_market_chart(market_df, selected_year)
+        elif chart_type == 'allocation':
+            chart_fig = create_allocation_chart(allocation_df, selected_year)
+
+        # 차트 표시 요청
+        if chart_fig:
+            st.session_state.chart_to_display = chart_fig
+            return response_text
+        else:
+            return "❌ 죄송합니다. 데이터는 있으나 차트 생성에 실패했습니다."
+
+    # 2. 시각화 요청이 아닐 경우, 기본 안내 메시지 반환
+    return "안녕하세요! 저는 탄소 중립 보조 AI입니다. '2017년과 2021년 배출량 비교 그래프 보여줘' 와 같이 질문해주세요."
 
 # 데이터 로드
 emissions_df = load_emissions_data()
@@ -580,9 +703,12 @@ with right_col:
     # 우측 최상단: 막대 그래프 (연도별 배출량)
     st.markdown('<div class="chart-container">', unsafe_allow_html=True)
     st.subheader("📊 연도별 탄소 배출량 현황")
+    st.markdown("*단위: Gg CO₂eq (기가그램 CO₂ 당량)*")
     
     if not emissions_df.empty:
         emissions_filtered = emissions_df[emissions_df['연도'] <= selected_year]
+        
+
         
         fig_bar = go.Figure()
         
@@ -590,14 +716,24 @@ with right_col:
             x=emissions_filtered['연도'],
             y=emissions_filtered['총배출량'],
             name='총배출량',
-            marker_color='gold'
+            marker_color='gold',
+            # 정확한 값을 호버 텍스트로 표시
+            hovertemplate='<b>총배출량</b><br>' +
+                         '연도: %{x}<br>' +
+                         '배출량: %{y:,.1f} Gg CO₂eq<br>' +
+                         '<extra></extra>'
         ))
         
         fig_bar.add_trace(go.Bar(
             x=emissions_filtered['연도'],
-            y=emissions_filtered['에너지배출량'],
+            y=emissions_filtered['에너지'],
             name='에너지배출량',
-            marker_color='steelblue'
+            marker_color='steelblue',
+            # 정확한 값을 호버 텍스트로 표시  
+            hovertemplate='<b>에너지배출량</b><br>' +
+                         '연도: %{x}<br>' +
+                         '배출량: %{y:,.1f} Gg CO₂eq<br>' +
+                         '<extra></extra>'
         ))
         
         fig_bar.update_layout(
@@ -606,7 +742,13 @@ with right_col:
             yaxis_title="배출량 (Gg CO₂eq)",
             barmode='group',
             height=300,
-            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+            # Y축 숫자 포맷팅을 정밀하게 설정
+            yaxis=dict(
+                tickformat=".0f",  # 소수점 없이 정수로 표시
+                hoverformat=".1f",  # 호버 시에는 소수점 1자리까지
+                separatethousands=True  # 천 단위 구분자 표시
+            )
         )
         
         st.plotly_chart(fig_bar, use_container_width=True)
@@ -642,6 +784,12 @@ with right_col:
         with st.chat_message("assistant"):
             response = analyze_scenario(prompt, emissions_df, market_df, allocation_df, selected_year)
             st.markdown(response)
+            
+            # 시각화 요청인 경우 차트 표시
+            if hasattr(st.session_state, 'chart_to_display') and st.session_state.chart_to_display is not None:
+                st.plotly_chart(st.session_state.chart_to_display, use_container_width=True)
+                # 차트 표시 후 초기화
+                st.session_state.chart_to_display = None
         
         # Add assistant response to chat history
         st.session_state.messages.append({"role": "assistant", "content": response})

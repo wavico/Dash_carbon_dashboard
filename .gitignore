@@ -32,5 +32,6 @@ scripts/
 
 package.json
 
-test_visualization.py
 run_chatbot_test.py
+test*
+test_emissions_chart.html
