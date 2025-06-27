@@ -1,0 +1,2183 @@
+{
+  "01. 3차_사전할당_20250613090824": {
+    "name": "01. 3차_사전할당_20250613090824",
+    "description": "01. 3차_사전할당_20250613090824 데이터",
+    "source": "알 수 없음",
+    "last_updated": "2025-06-27T04:59:45.107344",
+    "file_path": "data/01. 3차_사전할당_20250613090824.csv",
+    "file_hash": "7a4c05ecc120ad1de413e378ae4a8b6d",
+    "shape": [
+      781,
+      10
+    ],
+    "columns": [
+      {
+        "name": "번호",
+        "description": "번호",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "전환",
+          "산업",
+          "폐기물",
+          "건물",
+          "수송",
+          "공공ㆍ기타"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "부문",
+        "description": "부문 (분야/부문 분류)",
+        "data_type": "object",
+        "unit": null,
+        "category": "분야분류",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "업종",
+        "description": "업종 (산업/업종 분류)",
+        "data_type": "object",
+        "unit": null,
+        "category": "산업분류",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "업체명",
+        "description": "업체명 (기업/업체 정보)",
+        "data_type": "object",
+        "unit": null,
+        "category": "기업정보",
+        "is_key": true,
+        "is_numeric": false,
+        "possible_values": [
+          "Y",
+          "N"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "유상여부",
+        "description": "유상여부",
+        "data_type": "int64",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 0.0,
+        "max_value": 77153824.0
+      },
+      {
+        "name": "2021년",
+        "description": "2021년 (연도 정보)",
+        "data_type": "int64",
+        "unit": "년",
+        "category": "시간",
+        "is_key": true,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 0.0,
+        "max_value": 77153824.0
+      },
+      {
+        "name": "2022년",
+        "description": "2022년 (연도 정보)",
+        "data_type": "int64",
+        "unit": "년",
+        "category": "시간",
+        "is_key": true,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 0.0,
+        "max_value": 77153824.0
+      },
+      {
+        "name": "2023년",
+        "description": "2023년 (연도 정보)",
+        "data_type": "int64",
+        "unit": "년",
+        "category": "시간",
+        "is_key": true,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 0.0,
+        "max_value": 76431220.0
+      },
+      {
+        "name": "2024년",
+        "description": "2024년 (연도 정보)",
+        "data_type": "int64",
+        "unit": "년",
+        "category": "시간",
+        "is_key": true,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 16839.0,
+        "max_value": 76431220.0
+      },
+      {
+        "name": "2025년",
+        "description": "2025년 (연도 정보)",
+        "data_type": "float64",
+        "unit": "년",
+        "category": "시간",
+        "is_key": true,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      }
+    ],
+    "relationships": {
+      "02. 추가할당량_20250613090916": [
+        "업종",
+        "부문",
+        "번호",
+        "업체명"
+      ],
+      "03. 상쇄배출권 발행량_20250613090944": [
+        "업종",
+        "부문",
+        "번호",
+        "업체명"
+      ],
+      "한국에너지공단_산업부문 에너지사용 및 온실가스배출량 통계_20231231": [
+        "업종"
+      ]
+    },
+    "quality_score": 0.8700000000000001,
+    "tags": [
+      "온실가스"
+    ]
+  },
+  "02. 추가할당량_20250613090916": {
+    "name": "02. 추가할당량_20250613090916",
+    "description": "02. 추가할당량_20250613090916 데이터",
+    "source": "알 수 없음",
+    "last_updated": "2025-06-27T04:59:45.110343",
+    "file_path": "data/02. 추가할당량_20250613090916.csv",
+    "file_hash": "e62455fe49aea3010feae3005994617d",
+    "shape": [
+      410,
+      9
+    ],
+    "columns": [
+      {
+        "name": "번호",
+        "description": "번호",
+        "data_type": "int64",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 1.0,
+        "max_value": 410.0
+      },
+      {
+        "name": "부문",
+        "description": "부문 (분야/부문 분류)",
+        "data_type": "object",
+        "unit": null,
+        "category": "분야분류",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "산업",
+          "전환",
+          "폐기물",
+          "수송",
+          "건물",
+          "공공ㆍ기타"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "업종",
+        "description": "업종 (산업/업종 분류)",
+        "data_type": "object",
+        "unit": null,
+        "category": "산업분류",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "업체명",
+        "description": "업체명 (기업/업체 정보)",
+        "data_type": "object",
+        "unit": null,
+        "category": "기업정보",
+        "is_key": true,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "추가 할당량(2021년)",
+        "description": "추가 할당량(2021년) (연도 정보)",
+        "data_type": "int64",
+        "unit": "년",
+        "category": "시간",
+        "is_key": true,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 0.0,
+        "max_value": 3114055.0
+      },
+      {
+        "name": "추가 할당량(2022년)",
+        "description": "추가 할당량(2022년) (연도 정보)",
+        "data_type": "int64",
+        "unit": "년",
+        "category": "시간",
+        "is_key": true,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 0.0,
+        "max_value": 3983377.0
+      },
+      {
+        "name": "추가 할당량(2023년)",
+        "description": "추가 할당량(2023년) (연도 정보)",
+        "data_type": "int64",
+        "unit": "년",
+        "category": "시간",
+        "is_key": true,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 0.0,
+        "max_value": 3746520.0
+      },
+      {
+        "name": "추가 할당량(2024년)",
+        "description": "추가 할당량(2024년) (연도 정보)",
+        "data_type": "int64",
+        "unit": "년",
+        "category": "시간",
+        "is_key": true,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 0.0,
+        "max_value": 4327526.0
+      },
+      {
+        "name": "추가 할당량(2025년)",
+        "description": "추가 할당량(2025년) (연도 정보)",
+        "data_type": "int64",
+        "unit": "년",
+        "category": "시간",
+        "is_key": true,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 0.0,
+        "max_value": 3941324.0
+      }
+    ],
+    "relationships": {
+      "01. 3차_사전할당_20250613090824": [
+        "업종",
+        "부문",
+        "번호",
+        "업체명"
+      ],
+      "03. 상쇄배출권 발행량_20250613090944": [
+        "업종",
+        "부문",
+        "번호",
+        "업체명"
+      ],
+      "한국에너지공단_산업부문 에너지사용 및 온실가스배출량 통계_20231231": [
+        "업종"
+      ]
+    },
+    "quality_score": 0.9098915989159893,
+    "tags": [
+      "온실가스"
+    ]
+  },
+  "03. 상쇄배출권 발행량_20250613090944": {
+    "name": "03. 상쇄배출권 발행량_20250613090944",
+    "description": "03. 상쇄배출권 발행량_20250613090944 데이터",
+    "source": "알 수 없음",
+    "last_updated": "2025-06-27T04:59:45.111344",
+    "file_path": "data/03. 상쇄배출권 발행량_20250613090944.csv",
+    "file_hash": "db9dad99dbb5a5243b7c3d24258ac825",
+    "shape": [
+      318,
+      6
+    ],
+    "columns": [
+      {
+        "name": "번호",
+        "description": "번호",
+        "data_type": "int64",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 1.0,
+        "max_value": 318.0
+      },
+      {
+        "name": "부문",
+        "description": "부문 (분야/부문 분류)",
+        "data_type": "object",
+        "unit": null,
+        "category": "분야분류",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "폐기물",
+          "산업",
+          "전환",
+          "건물",
+          "공공·기타",
+          "공공 및 폐기물",
+          NaN
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "업종",
+        "description": "업종 (산업/업종 분류)",
+        "data_type": "object",
+        "unit": null,
+        "category": "산업분류",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "업체명",
+        "description": "업체명 (기업/업체 정보)",
+        "data_type": "object",
+        "unit": null,
+        "category": "기업정보",
+        "is_key": true,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "이행연도",
+        "description": "이행연도 (연도 정보)",
+        "data_type": "object",
+        "unit": "년",
+        "category": "시간",
+        "is_key": true,
+        "is_numeric": false,
+        "possible_values": [
+          "2024년",
+          "2023년",
+          "2022년",
+          "2021년",
+          "2020년",
+          "2019년",
+          "2018년",
+          "2017년",
+          "2016년",
+          "2015년"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "상쇄배출권 발행수량",
+        "description": "상쇄배출권 발행수량 (온실가스 배출량)",
+        "data_type": "int64",
+        "unit": "tCO2eq",
+        "category": "배출량",
+        "is_key": false,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 1.0,
+        "max_value": 4008208.0
+      }
+    ],
+    "relationships": {
+      "01. 3차_사전할당_20250613090824": [
+        "업종",
+        "부문",
+        "번호",
+        "업체명"
+      ],
+      "02. 추가할당량_20250613090916": [
+        "업종",
+        "부문",
+        "번호",
+        "업체명"
+      ],
+      "한국에너지공단_산업부문 에너지사용 및 온실가스배출량 통계_20231231": [
+        "업종"
+      ]
+    },
+    "quality_score": 0.90958071278826,
+    "tags": [
+      "온실가스"
+    ]
+  },
+  "CLM_온실가스_DD_20250612201816": {
+    "name": "CLM_온실가스_DD_20250612201816",
+    "description": "CLM_온실가스_DD_20250612201816 데이터",
+    "source": "알 수 없음",
+    "last_updated": "2025-06-27T04:59:45.120354",
+    "file_path": "data/CLM_온실가스_DD_20250612201816.csv",
+    "file_hash": "1efa08a87faae87ef555a58be0371e93",
+    "shape": [
+      3362,
+      4
+    ],
+    "columns": [
+      {
+        "name": "지점",
+        "description": "지점",
+        "data_type": "int64",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 115.0,
+        "max_value": 185.0
+      },
+      {
+        "name": "지점명",
+        "description": "지점명",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "울릉도독도(감)",
+          "안면도(감)",
+          "고산(감)"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "일시",
+        "description": "일시",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "평균 이산화탄소(CO2) 배경대기농도(ppm)",
+        "description": "평균 이산화탄소(CO2) 배경대기농도(ppm)",
+        "data_type": "float64",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 403.0075944,
+        "max_value": 435.9392662
+      }
+    ],
+    "relationships": {},
+    "quality_score": 0.91,
+    "tags": [
+      "온실가스"
+    ]
+  },
+  "국가 온실가스 인벤토리(1990_2021)": {
+    "name": "국가 온실가스 인벤토리(1990_2021)",
+    "description": "국가 온실가스 인벤토리(1990_2021) 데이터",
+    "source": "알 수 없음",
+    "last_updated": "2025-06-27T04:59:45.124344",
+    "file_path": "data/국가 온실가스 인벤토리(1990_2021).csv",
+    "file_hash": "0988f68b08cb32d8bd9b2a5d106a47e7",
+    "shape": [
+      144,
+      33
+    ],
+    "columns": [
+      {
+        "name": "분야 및 연도",
+        "description": "분야 및 연도 (연도 정보)",
+        "data_type": "object",
+        "unit": "년",
+        "category": "시간",
+        "is_key": true,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "1990",
+        "description": "1990",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "1991",
+        "description": "1991",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "1992",
+        "description": "1992",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "1993",
+        "description": "1993",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "1994",
+        "description": "1994",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "1995",
+        "description": "1995",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "1996",
+        "description": "1996",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "1997",
+        "description": "1997",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "1998",
+        "description": "1998",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "1999",
+        "description": "1999",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2000",
+        "description": "2000",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2001",
+        "description": "2001",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2002",
+        "description": "2002",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2003",
+        "description": "2003",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2004",
+        "description": "2004",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2005",
+        "description": "2005",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2006",
+        "description": "2006",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2007",
+        "description": "2007",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2008",
+        "description": "2008",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2009",
+        "description": "2009",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2010",
+        "description": "2010",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2011",
+        "description": "2011",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2012",
+        "description": "2012",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2013",
+        "description": "2013",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2014",
+        "description": "2014",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2015",
+        "description": "2015",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2016",
+        "description": "2016",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2017",
+        "description": "2017",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2018",
+        "description": "2018",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2019",
+        "description": "2019",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2020",
+        "description": "2020",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "2021",
+        "description": "2021",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      }
+    ],
+    "relationships": {
+      "환경부 온실가스종합정보센터_국가 온실가스 인벤토리 배출량_20250103": [
+        "2008",
+        "1992",
+        "2009",
+        "2016",
+        "2010",
+        "2002",
+        "2006",
+        "2012",
+        "1990",
+        "1999",
+        "1996",
+        "2014",
+        "1995",
+        "2001",
+        "1997",
+        "2019",
+        "2020",
+        "2003",
+        "1998",
+        "2013",
+        "1993",
+        "2011",
+        "2007",
+        "2017",
+        "2021",
+        "2018",
+        "2004",
+        "2005",
+        "1994",
+        "2015",
+        "2000",
+        "1991"
+      ]
+    },
+    "quality_score": 0.91,
+    "tags": [
+      "온실가스"
+    ]
+  },
+  "배출권_거래데이터": {
+    "name": "배출권_거래데이터",
+    "description": "배출권 거래 관련 데이터",
+    "source": "한국거래소",
+    "last_updated": "2025-06-27T04:59:45.134344",
+    "file_path": "data/배출권_거래데이터.csv",
+    "file_hash": "85950cf648806bd40bc3ac4fa21144af",
+    "shape": [
+      1624,
+      11
+    ],
+    "columns": [
+      {
+        "name": "일자",
+        "description": "일자",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "종목명",
+        "description": "종목명",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "KAU24",
+          "KAU25",
+          "KCU24",
+          "KCU25",
+          "KOC21-26",
+          "KOC22-27",
+          "KOC23-28",
+          "KOC24-29",
+          "KOC25-30",
+          "i-KCU24",
+          "i-KCU25",
+          "i-KOC21-26",
+          "i-KOC22-27",
+          "i-KOC23-28",
+          "i-KOC24-29",
+          "i-KOC25-30"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "종가",
+        "description": "종가",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "대비",
+        "description": "대비",
+        "data_type": "int64",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": -630.0,
+        "max_value": 830.0
+      },
+      {
+        "name": "등락률",
+        "description": "등락률",
+        "data_type": "float64",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": -6.64,
+        "max_value": 9.52
+      },
+      {
+        "name": "시가",
+        "description": "시가",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "고가",
+        "description": "고가",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "저가",
+        "description": "저가",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "거래량",
+        "description": "거래량 (배출권 거래량)",
+        "data_type": "object",
+        "unit": "tCO2eq",
+        "category": "거래량",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "거래대금",
+        "description": "거래대금 (배출권 거래량)",
+        "data_type": "object",
+        "unit": "tCO2eq",
+        "category": "거래량",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "가중평균",
+        "description": "가중평균",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      }
+    ],
+    "relationships": {},
+    "quality_score": 0.91,
+    "tags": [
+      "배출권",
+      "거래",
+      "시장"
+    ]
+  },
+  "배출권총수량_20250613090514": {
+    "name": "배출권총수량_20250613090514",
+    "description": "배출권총수량_20250613090514 데이터",
+    "source": "알 수 없음",
+    "last_updated": "2025-06-27T04:59:45.135344",
+    "file_path": "data/배출권총수량_20250613090514.csv",
+    "file_hash": "f0f9709a45bc29c59e42ad4f17413f28",
+    "shape": [
+      1,
+      6
+    ],
+    "columns": [
+      {
+        "name": "계획기간 배출권 총수량",
+        "description": "계획기간 배출권 총수량 (온실가스 배출량)",
+        "data_type": "int64",
+        "unit": "tCO2eq",
+        "category": "배출량",
+        "is_key": false,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 3069509248.0,
+        "max_value": 3069509248.0
+      },
+      {
+        "name": "2021년 총수량",
+        "description": "2021년 총수량 (연도 정보)",
+        "data_type": "int64",
+        "unit": "년",
+        "category": "시간",
+        "is_key": true,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 583112071.0,
+        "max_value": 583112071.0
+      },
+      {
+        "name": "2022년 총수량",
+        "description": "2022년 총수량 (연도 정보)",
+        "data_type": "int64",
+        "unit": "년",
+        "category": "시간",
+        "is_key": true,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 564568844.0,
+        "max_value": 564568844.0
+      },
+      {
+        "name": "2023년 총수량",
+        "description": "2023년 총수량 (연도 정보)",
+        "data_type": "int64",
+        "unit": "년",
+        "category": "시간",
+        "is_key": true,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 548858984.0,
+        "max_value": 548858984.0
+      },
+      {
+        "name": "2024년 총수량",
+        "description": "2024년 총수량 (연도 정보)",
+        "data_type": "int64",
+        "unit": "년",
+        "category": "시간",
+        "is_key": true,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 642724152.0,
+        "max_value": 642724152.0
+      },
+      {
+        "name": "2025년 총수량",
+        "description": "2025년 총수량 (연도 정보)",
+        "data_type": "int64",
+        "unit": "년",
+        "category": "시간",
+        "is_key": true,
+        "is_numeric": true,
+        "possible_values": null,
+        "min_value": 549472616.0,
+        "max_value": 549472616.0
+      }
+    ],
+    "relationships": {},
+    "quality_score": 0.91,
+    "tags": [
+      "온실가스"
+    ]
+  },
+  "한국에너지공단_산업부문 에너지사용 및 온실가스배출량 통계_20231231": {
+    "name": "한국에너지공단_산업부문 에너지사용 및 온실가스배출량 통계_20231231",
+    "description": "한국에너지공단_산업부문 에너지사용 및 온실가스배출량 통계_20231231 데이터",
+    "source": "알 수 없음",
+    "last_updated": "2025-06-27T04:59:45.138344",
+    "file_path": "data/한국에너지공단_산업부문 에너지사용 및 온실가스배출량 통계_20231231.csv",
+    "file_hash": "8a28206302f88d5c3ffb29ff4d60b348",
+    "shape": [
+      216,
+      22
+    ],
+    "columns": [
+      {
+        "name": "업종",
+        "description": "업종 (산업/업종 분류)",
+        "data_type": "object",
+        "unit": null,
+        "category": "산업분류",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "B.광업",
+          "051.석탄광업",
+          "052.원유및천연가스채굴업",
+          "061.철광업",
+          "062.비철금속광업",
+          "071.토사석광업",
+          "072.기타비금속광물광업",
+          "080.광업지원서비스업"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "구분",
+        "description": "구분",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "합계",
+          "석탄류",
+          "석유류",
+          "가스류",
+          "기타",
+          "열에너지",
+          "전력"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "연료명",
+        "description": "연료명",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "합계",
+          "소계",
+          "연탄",
+          "국내무연탄",
+          "수입무연탄 연료",
+          "수입무연탄 원료",
+          "유연탄(연료용)",
+          "유연탄(원료용)",
+          "석탄코크스",
+          "고로,전로가스등",
+          "기타석탄",
+          "휘발유",
+          "실내등유",
+          "경유",
+          "경질중유",
+          "중유",
+          "중질중유",
+          "납사",
+          "부생.정제가스",
+          "프로판"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "단위명",
+        "description": "단위명",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "천tCO₂"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "합계",
+        "description": "합계",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "729.6",
+          "138.8",
+          " ",
+          "14",
+          "124.8",
+          "66.6",
+          "0",
+          "6.7",
+          "11.6",
+          "1.7",
+          "2.3",
+          "0.1",
+          "0.7",
+          "43.6",
+          "3.9",
+          "520.3",
+          "55.6",
+          "1",
+          "53.6",
+          "1.2"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "서울",
+        "description": "서울",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "1.1",
+          " ",
+          "0"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "부산",
+        "description": "부산",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "0.8",
+          " ",
+          "0.3",
+          "0.5"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "대구",
+        "description": "대구",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "0.6",
+          " "
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "인천",
+        "description": "인천",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "12.8",
+          " ",
+          "12.7",
+          "0.1"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "광주",
+        "description": "광주",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "0.7",
+          " "
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "대전",
+        "description": "대전",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "0.6",
+          " "
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "울산",
+        "description": "울산",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "21.1",
+          " ",
+          "2.4",
+          "18.7",
+          "1.2",
+          "20",
+          "17.6"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "경기",
+        "description": "경기",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "80.9",
+          " ",
+          "12.5",
+          "1.1",
+          "1.7",
+          "0",
+          "9.8",
+          "68.4",
+          "0.3",
+          "80.6",
+          "68.1"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "강원",
+        "description": "강원",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "270.7",
+          "91.6",
+          " ",
+          "0.1",
+          "91.5",
+          "41.4",
+          "0",
+          "1",
+          "6.8",
+          "0.7",
+          "32.9",
+          "0.8",
+          "136.9",
+          "50.4",
+          "1.7",
+          "48.4",
+          "5.6",
+          "1.4",
+          "211.7",
+          "39.7"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "충북",
+        "description": "충북",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "120.2",
+          "47.2",
+          " ",
+          "13.9",
+          "33.3",
+          "1.8",
+          "1",
+          "0",
+          "0.8",
+          "0.6",
+          "70.7",
+          "5.7",
+          "107.1",
+          "57.5",
+          "7.5"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "충남",
+        "description": "충남",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "44.8",
+          " ",
+          "1.1",
+          "0",
+          "0.3",
+          "0.2",
+          "0.1",
+          "0.6",
+          "43.6",
+          "44.1",
+          "42.9",
+          "0.7"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "전북",
+        "description": "전북",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "24.8",
+          " ",
+          "1.1",
+          "23.7",
+          "0.5",
+          "24.2",
+          "23.2",
+          "0.1"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "전남",
+        "description": "전남",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "33.4",
+          " ",
+          "0",
+          "5.2",
+          "1.9",
+          "19.8",
+          "6.5"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "경북",
+        "description": "경북",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "72.8",
+          " ",
+          "8.5",
+          "4.7",
+          "2.2",
+          "0.7",
+          "0.9",
+          "0.1",
+          "64.3",
+          "9.1",
+          "8.2",
+          "60.2",
+          "7.5",
+          "52.6",
+          "3.5"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "경남",
+        "description": "경남",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "33.7",
+          " ",
+          "0.1",
+          "0",
+          "33.6"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "제주",
+        "description": "제주",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "5.6",
+          " ",
+          "5.3",
+          "0.2"
+        ],
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": "세종",
+        "description": "세종",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": [
+          "4.8",
+          " ",
+          "0.1",
+          "4.7"
+        ],
+        "min_value": null,
+        "max_value": null
+      }
+    ],
+    "relationships": {
+      "01. 3차_사전할당_20250613090824": [
+        "업종"
+      ],
+      "02. 추가할당량_20250613090916": [
+        "업종"
+      ],
+      "03. 상쇄배출권 발행량_20250613090944": [
+        "업종"
+      ]
+    },
+    "quality_score": 0.91,
+    "tags": [
+      "온실가스"
+    ]
+  },
+  "환경부 온실가스종합정보센터_국가 온실가스 인벤토리 배출량_20250103": {
+    "name": "환경부 온실가스종합정보센터_국가 온실가스 인벤토리 배출량_20250103",
+    "description": "환경부 온실가스종합정보센터_국가 온실가스 인벤토리 배출량_20250103 데이터",
+    "source": "알 수 없음",
+    "last_updated": "2025-06-27T04:59:45.147344",
+    "file_path": "data/환경부 온실가스종합정보센터_국가 온실가스 인벤토리 배출량_20250103.csv",
+    "file_hash": "cf4571e4d6494fa25587bb4e91a41fa9",
+    "shape": [
+      161,
+      34
+    ],
+    "columns": [
+      {
+        "name": "연도",
+        "description": "연도 (연도 정보)",
+        "data_type": "object",
+        "unit": "년",
+        "category": "시간",
+        "is_key": true,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 1990,
+        "description": "1990",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 1991,
+        "description": "1991",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 1992,
+        "description": "1992",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 1993,
+        "description": "1993",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 1994,
+        "description": "1994",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 1995,
+        "description": "1995",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 1996,
+        "description": "1996",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 1997,
+        "description": "1997",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 1998,
+        "description": "1998",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 1999,
+        "description": "1999",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2000,
+        "description": "2000",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2001,
+        "description": "2001",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2002,
+        "description": "2002",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2003,
+        "description": "2003",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2004,
+        "description": "2004",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2005,
+        "description": "2005",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2006,
+        "description": "2006",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2007,
+        "description": "2007",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2008,
+        "description": "2008",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2009,
+        "description": "2009",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2010,
+        "description": "2010",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2011,
+        "description": "2011",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2012,
+        "description": "2012",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2013,
+        "description": "2013",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2014,
+        "description": "2014",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2015,
+        "description": "2015",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2016,
+        "description": "2016",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2017,
+        "description": "2017",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2018,
+        "description": "2018",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2019,
+        "description": "2019",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2020,
+        "description": "2020",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2021,
+        "description": "2021",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      },
+      {
+        "name": 2022,
+        "description": "2022",
+        "data_type": "object",
+        "unit": null,
+        "category": "기타",
+        "is_key": false,
+        "is_numeric": false,
+        "possible_values": null,
+        "min_value": null,
+        "max_value": null
+      }
+    ],
+    "relationships": {
+      "국가 온실가스 인벤토리(1990_2021)": [
+        "2008",
+        "1992",
+        "2009",
+        "2016",
+        "2010",
+        "2002",
+        "2006",
+        "2012",
+        "1990",
+        "1999",
+        "1996",
+        "2014",
+        "1995",
+        "2001",
+        "1997",
+        "2019",
+        "2020",
+        "2003",
+        "1998",
+        "2013",
+        "1993",
+        "2011",
+        "2007",
+        "2017",
+        "2021",
+        "2018",
+        "2004",
+        "2005",
+        "1994",
+        "2015",
+        "2000",
+        "1991"
+      ]
+    },
+    "quality_score": 0.9075886006576543,
+    "tags": [
+      "온실가스"
+    ]
+  }
+}
