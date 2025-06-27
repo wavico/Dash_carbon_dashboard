@@ -2,7 +2,7 @@
 
 한국의 탄소배출량과 배출권 거래 현황을 시각화하는 인터랙티브 웹 대시보드입니다. Streamlit을 기반으로 구축되었으며, 실시간 데이터 분석과 AI 기반 챗봇을 제공합니다.
 
-![image](https://github.com/user-attachments/assets/ac13f42f-ca2c-4bfc-93f5-99e4c64d61ff)
+![image](https://github.com/user-attachments/assets/da4a6623-b8fd-47f3-882b-400ae9b5feb2)
 ![image](https://github.com/user-attachments/assets/5da6498a-e303-452f-b530-a5f5e9d99a47)
 
 
