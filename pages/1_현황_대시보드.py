@@ -708,8 +708,6 @@ with right_col:
     if not emissions_df.empty:
         emissions_filtered = emissions_df[emissions_df['연도'] <= selected_year]
         
-
-        
         fig_bar = go.Figure()
         
         fig_bar.add_trace(go.Bar(

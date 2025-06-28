@@ -23,6 +23,28 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# 사이드바 제어를 위한 JavaScript 추가
+st.markdown("""
+<script>
+window.addEventListener('message', function(event) {
+    if (event.origin !== 'http://localhost:3000') return;
+    
+    if (event.data.type === 'TOGGLE_SIDEBAR') {
+        const sidebar = document.querySelector('[data-testid="stSidebar"]');
+        if (sidebar) {
+            if (event.data.sidebarState === 'collapsed') {
+                sidebar.style.transform = 'translateX(-100%)';
+                sidebar.style.transition = 'transform 0.3s ease';
+            } else {
+                sidebar.style.transform = 'translateX(0)';
+                sidebar.style.transition = 'transform 0.3s ease';
+            }
+        }
+    }
+});
+</script>
+""", unsafe_allow_html=True)
+
 # 커스텀 CSS
 st.markdown("""
 <style>
@@ -171,35 +193,35 @@ with col4:
     """, unsafe_allow_html=True)
 
 # 주요 기능 소개
-# st.markdown("## 🚀 주요 기능")
+st.markdown("## 🚀 주요 기능")
 
-# col1, col2 = st.columns(2)
+col1, col2 = st.columns(2)
 
-# with col1:
-#     st.markdown("""
-#     <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: 15px 0; border-left: 5px solid #1f77b4;">
-#         <h3>📊 현황 대시보드</h3>
-#         <ul>
-#             <li><strong>실시간 모니터링</strong>: 연도별 배출량, 지역별 CO₂ 농도</li>
-#             <li><strong>시장 분석</strong>: KAU24 가격/거래량 추이</li>
-#             <li><strong>할당량 현황</strong>: 업종별/업체별 분포</li>
-#             <li><strong>AI 챗봇</strong>: 시나리오 시뮬레이션</li>
-#         </ul>
-#     </div>
-#     """, unsafe_allow_html=True)
+with col1:
+    st.markdown("""
+    <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: 15px 0; border-left: 5px solid #1f77b4;">
+        <h3>📊 현황 대시보드</h3>
+        <ul>
+            <li><strong>실시간 모니터링</strong>: 연도별 배출량, 지역별 CO₂ 농도</li>
+            <li><strong>시장 분석</strong>: KAU24 가격/거래량 추이</li>
+            <li><strong>할당량 현황</strong>: 업종별/업체별 분포</li>
+            <li><strong>AI 챗봇</strong>: 시나리오 시뮬레이션</li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
 
-# with col2:
-#     st.markdown("""
-#     <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: 15px 0; border-left: 5px solid #1f77b4;">
-#         <h3>🎯 구매 전략 대시보드</h3>
-#         <ul>
-#             <li><strong>알림 시스템</strong>: 정책/가격 급등 예고</li>
-#             <li><strong>타이밍 분석</strong>: 최적 매수 시점 추천</li>
-#             <li><strong>ROI 비교</strong>: 감축 vs 구매 전략 분석</li>
-#             <li><strong>헤징 전략</strong>: ETF/선물 연계 포트폴리오</li>
-#         </ul>
-#     </div>
-#     """, unsafe_allow_html=True)
+with col2:
+    st.markdown("""
+    <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: 15px 0; border-left: 5px solid #1f77b4;">
+        <h3>🎯 구매 전략 대시보드</h3>
+        <ul>
+            <li><strong>알림 시스템</strong>: 정책/가격 급등 예고</li>
+            <li><strong>타이밍 분석</strong>: 최적 매수 시점 추천</li>
+            <li><strong>ROI 비교</strong>: 감축 vs 구매 전략 분석</li>
+            <li><strong>헤징 전략</strong>: ETF/선물 연계 포트폴리오</li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
 
 # ESG 기반 탄소 감축 랭킹 시스템 구현
 st.markdown('---')
@@ -230,7 +252,6 @@ st.markdown("""
     <h3>🥇 탄소 감축 성과 기반 ESG 랭킹 보드</h3>
 </div>
 """, unsafe_allow_html=True)
-
 
 # 샘플 랭킹 데이터 생성
 industries = ["전자제품", "철강", "화학", "자동차", "건설", "에너지"]
@@ -322,7 +343,6 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -378,7 +398,6 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-
 # 배지 생성 함수
 def create_esg_badge(grade, company_name, score):
     # 배지 이미지 생성
@@ -398,161 +417,50 @@ def create_esg_badge(grade, company_name, score):
     
     # 배지 그리기
     draw.ellipse([50, 50, 350, 150], outline=color, width=5)
-    draw.text((200, 80), f"{medal} ESG {grade}", fill=color, anchor="mm")
-    draw.text((200, 110), company_name, fill='black', anchor="mm")
-    draw.text((200, 140), f"Score: {score}", fill='black', anchor="mm")
+    
+    # 텍스트 추가
+    try:
+        font = ImageFont.truetype("arial.ttf", 20)
+    except:
+        font = ImageFont.load_default()
+    
+    draw.text((200, 80), medal, fill=color, anchor="mm", font=font)
+    draw.text((200, 110), f"{grade} 등급", fill=color, anchor="mm", font=font)
+    draw.text((200, 140), f"{company_name}", fill=(0, 0, 0), anchor="mm", font=font)
+    draw.text((200, 160), f"ESG 점수: {score}", fill=(0, 0, 0), anchor="mm", font=font)
     
     return img
 
 # 배지 생성 및 표시
 badge_img = create_esg_badge(grade, company_name, current_esg_score)
 
-col1, col2, col3 = st.columns(3)
+col1, col2 = st.columns([1, 1])
 
 with col1:
-    st.image(badge_img, caption=f"ESG {grade} 배지", use_container_width=True)
+    st.image(badge_img, caption=f"{company_name} ESG 배지", use_column_width=True)
 
 with col2:
-    st.subheader("📊 배지 정보")
-    st.write(f"**기업명**: {company_name}")
-    st.write(f"**ESG 등급**: {grade}")
-    st.write(f"**점수**: {current_esg_score}점")
-    st.write(f"**감축률**: {current_reduction_rate}%")
-    st.write(f"**업종**: {industry}")
-
-with col3:
-    st.subheader("📤 공유 기능")
-    
-    # 배지 다운로드
-    buf = io.BytesIO()
-    badge_img.save(buf, format='PNG')
-    buf.seek(0)
-    
-    st.download_button(
-        label="📄 배지 다운로드",
-        data=buf.getvalue(),
-        file_name=f"ESG_Badge_{company_name}_{grade}.png",
-        mime="image/png"
-    )
-    
-    # 공유 문구 생성
-    share_text = f"""
-🏆 {company_name} ESG 성과 공유
-
-📊 ESG 등급: {grade} ({current_esg_score}점)
-🌱 탄소 감축률: {current_reduction_rate}%
-🏭 업종: {industry}
-
-#ESG #탄소감축 #지속가능경영
-    """.strip()
-    
-    st.text_area("📝 공유 문구", share_text, height=150)
-    
-    if st.button("📋 복사"):
-        st.success("공유 문구가 클립보드에 복사되었습니다!")
-
-# 4. 🧠 AI 기반 ESG 개선 시뮬레이터
-st.markdown("""
-<div class="simulator-container">
-    <h3>🧠 AI 기반 ESG 개선 시뮬레이터</h3>
-</div>
-""", unsafe_allow_html=True)
-
-
-# 시뮬레이터 입력
-col1, col2 = st.columns(2)
-
-with col1:
-    st.subheader("📥 현재 상황")
-    st.write(f"**현재 ESG 점수**: {current_esg_score}점")
-    st.write(f"**현재 감축률**: {current_reduction_rate}%")
-    st.write(f"**목표 ESG 점수**: {target_esg_score}점")
-    st.write(f"**목표 감축률**: {target_reduction_rate}%")
-
-with col2:
-    st.subheader("🎯 개선 목표")
-    improvement_needed = target_esg_score - current_esg_score
-    reduction_needed = target_reduction_rate - current_reduction_rate
-    
-    st.metric("필요 ESG 점수 상승", f"+{improvement_needed}점")
-    st.metric("필요 감축률 상승", f"+{reduction_needed}%")
-
-# AI 시뮬레이션 실행
-if st.button("🤖 AI 시뮬레이션 실행", type="primary"):
-    st.subheader("📊 AI 분석 결과")
-    
-    # 시뮬레이션 결과 생성
-    scenarios = [
-        {
-            "전략": "에너지 효율 개선",
-            "투자비용": f"{improvement_needed * 2}억원",
-            "예상효과": f"ESG +{improvement_needed * 0.3:.1f}점",
-            "소요기간": "6개월",
-            "성공확률": "85%"
-        },
-        {
-            "전략": "재생에너지 전환",
-            "투자비용": f"{improvement_needed * 5}억원",
-            "예상효과": f"ESG +{improvement_needed * 0.5:.1f}점",
-            "소요기간": "12개월",
-            "성공확률": "75%"
-        },
-        {
-            "전략": "배출권 거래 최적화",
-            "투자비용": f"{improvement_needed * 1}억원",
-            "예상효과": f"ESG +{improvement_needed * 0.2:.1f}점",
-            "소요기간": "3개월",
-            "성공확률": "90%"
-        }
-    ]
-    
-    scenario_df = pd.DataFrame(scenarios)
-    st.dataframe(scenario_df, use_container_width=True)
-    
-    # 추천 전략
-    st.subheader("💡 AI 추천 전략")
-    best_scenario = scenarios[0]  # 가장 높은 성공확률
-    
-    st.markdown(f"""
-    **🎯 최적 전략**: {best_scenario['전략']}
-    
-    - **투자비용**: {best_scenario['투자비용']}
-    - **예상효과**: {best_scenario['예상효과']}
-    - **소요기간**: {best_scenario['소요기간']}
-    - **성공확률**: {best_scenario['성공확률']}
-    """)
-    
-    # 시각화
-    fig_scenario = px.bar(scenario_df, x='전략', y='성공확률', 
-                         title="전략별 성공확률 비교",
-                         color='성공확률', color_continuous_scale='viridis')
-    st.plotly_chart(fig_scenario, use_container_width=True)
-
-# 사용 가이드
-st.markdown("## 📖 사용 가이드")
-
-st.markdown("""
-### 🎯 **1단계: 현황 파악**
-왼쪽 사이드바의 **"현황 대시보드"**를 클릭하여 현재 탄소배출량과 배출권 시장 상황을 파악하세요.
-
-### 💡 **2단계: 전략 수립**
-**"구매 전략 대시보드"**에서 AI 기반 구매 전략과 투자 방향을 확인하세요.
-
-### 📈 **3단계: 실행 및 모니터링**
-수립된 전략을 실행하고 지속적으로 모니터링하여 최적화하세요.
-""")
-
-
-# 플로팅 챗봇 버튼 제거됨
-
-# 푸터
-st.markdown("---")
-st.markdown(
-    """
-    <div style='text-align: center; color: #888; margin-top: 50px;'>
-        <p>🌍 탄소배출권 통합 관리 시스템 | Built with Streamlit & Plotly</p>
-        <p>실시간 데이터 기반 종합 탄소배출권 관리 솔루션</p>
+    st.markdown("""
+    <div style="padding: 20px;">
+        <h4>🏆 ESG 성과 공유</h4>
+        <p>당신의 ESG 성과를 소셜 미디어에 공유하세요!</p>
+        <ul>
+            <li>📱 LinkedIn에 공유</li>
+            <li>🐦 Twitter에 공유</li>
+            <li>📧 이메일로 전송</li>
+            <li>💾 이미지 다운로드</li>
+        </ul>
     </div>
-    """, 
-    unsafe_allow_html=True
-) 
+    """, unsafe_allow_html=True)
+    
+    # 공유 버튼들
+    col_share1, col_share2 = st.columns(2)
+    with col_share1:
+        if st.button("📱 LinkedIn 공유"):
+            st.success("LinkedIn 공유 링크가 생성되었습니다!")
+    with col_share2:
+        if st.button("🐦 Twitter 공유"):
+            st.success("Twitter 공유 링크가 생성되었습니다!")
+
+# 자동 새로고침 (선택사항)
+# st_autorefresh(interval=30000, key="data_refresh")  # 30초마다 새로고침 
